@@ -1,26 +1,21 @@
-'use strict'
+// 'use strict'
 
-var express = require('express');
-var bodyParser = require('body-parser');
+const express = require('express');
+const cityRoutes = require('./routers/city');
 
-var app = express();
-//CARGAR ARCHIVOS DE RUTAS
-var project_routes = require('./routers/project');
 
-//middlewares
+const app = express();
 
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+//settings
+app.set('port' , process.env.PORT || 3000)
 
-//CORS
+//middleware
+app.use(express.json())
+app.use(express.urlencoded({extended: true}))
 
-//RUTAS
-// app.get('/test', (req, res) => {
-//     res.status(200).send({ message: 'hola mundo' })
-
-// })
-app.use('/api' , project_routes);
-
-//EXPORTAR
+//routes
+app.use('/api/city', cityRoutes)
 
 module.exports = app;
+
+
